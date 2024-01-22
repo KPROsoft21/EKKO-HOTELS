@@ -1,0 +1,87 @@
+{% extends 'base/base.html'%}
+{% block content%}
+    <div class="row">
+<div class="col l8 offset-l2 m10 offset-m1 s12">
+<div class="card-panel">
+      {% if messages %}
+  {% for messsage in messages %}
+  {% if messsage.tags == 'info' %}
+ <div class='chip green white-text'>{{messsage}}</div>
+ {% endif %}
+  {% if messsage.tags == 'warning' %}
+ <div class='chip red white-text'>{{messsage}}</div>
+ {% endif %}
+ <br>
+  {% endfor %}
+  {% endif %}
+<div class="row">
+<form class="col s12" method="POST" action="/user/add-room/new/" enctype="multipart/form-data">
+{% csrf_token %}
+      <div class="row">
+        <div class="input-field col s12">  
+          <input placeholder="Enter Room No" id="first_name" type="text" name="room_no">
+          <label for="first_name">Room No</label>
+        </div>
+      </div>
+      <div class="row">
+      <div class="col s12">
+       <label>Room Type</label>
+  <select class="browser-default" name="room_type">
+    <option value="Single Room">Single Room</option>
+    <option value="Double Room">Double Room</option>
+    <option value="Deluxe Room">Deluxe Room</option>
+    <option value="Super Deluxe Room">Super Deluxe Room</option>
+
+  </select>
+      </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" name="price" id="price">
+          <label for="price">Price</label>
+        </div>
+      </div>
+      <div class="row">
+ <div class="file-field input-field col s12">
+     <div class="btn red lighten-2">
+       <span><i class="material-icons left black-text text-lighten-1">image</i> Room Image</span>
+       <input type="file" name="room_image">
+     </div>
+     <div class="file-path-wrapper">
+       <input class="file-path validate" type="text">
+     </div>
+   </div>
+      
+      </div>
+         <div class="row">
+        <div class="input-field col s12">
+          <input type="text" name="no_of_days_advance" id="no_of_days_advance">
+          <label for="no_of_days_advance">No of days in advance</label>
+        </div>
+      </div>
+         <div class="row">
+        <div class="input-field col s12">
+          <input type="text" name="start_day" id="start_day" class="datepicker">
+          <label for="start_day">From when room will be available for booking</label>
+        </div>
+      </div>
+      <div class="center">
+      <input type="submit" class="btn green btn-large" value="Add Room">
+      </div>
+    </form>
+</div>
+</div>
+</div>
+    </div>
+    <script>
+     $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year,
+    today: 'Today',
+    clear: 'Clear',
+    close: 'Ok',
+    closeOnSelect: false // Close upon selecting a date,
+  });
+        
+    </script>
+{% endblock %}

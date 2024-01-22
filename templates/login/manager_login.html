@@ -1,0 +1,113 @@
+{% extends 'base/base.html' %}
+{% block content%}
+<div class="row">
+  <div class="col l6 offset-l3 m8 offset-m2 s12">
+    <div class="card-panel yellow lighten-2">
+      For <b>Customer</b> Signup/Login <a href="/user/login">Click Here</a>
+    </div>
+  </div>
+    <div class="col l6 offset-l3 m8 offset-m2 s12">
+        <div class="card-panel ">
+             {% if messages %}
+  {% for messsage in messages %}
+  {% if messsage.tags == 'info' %}
+ <div class='chip green white-text'>{{messsage}}</div>
+ {% endif %}
+  {% if messsage.tags == 'warning' %}
+ <div class='chip red white-text'>{{messsage}}</div>
+ {% endif %}
+ <br>
+  {% endfor %}
+  {% endif %}
+        <div class="center">
+</div>
+        <ul class="tabs ">
+       <li class="tab col s6"><a class="active black-text" href="#login" style="font-family:Stylish;font-size:1.3rem">Login</a></li>
+       <li class="tab col s6"><a  class="black-text" href="#signup" style="font-family:Stylish;font-size:1.3rem">Sign Up</a></li>
+       
+     </ul>
+     <div class="row">
+     <div id="login" class="col s12">
+         <h4 class="center" style="font-family:Stylish">Login as Room Manager</h4>
+     <form class="col s12" method="POST" action="/manager/login1">
+     <div class="row">
+       <div class="input-field col s12">
+         <i class="material-icons prefix red-text text-lighten-2">person_pin</i>
+         <input type="text" name="username" id="username" required placeholder="Enter Username">
+       </div>
+       <div class="input-field col s12">
+         <i class="material-icons prefix red-text text-lighten-2">vpn_key</i>
+         <input type="password" name="password" id="password" required placeholder="Enter Password">
+       </div>
+       {% csrf_token %}
+          <div class="center">
+           <input type="submit" value="Login" class="btn green btn-large" name="login">
+       </div>
+     </div>
+   </form>
+     </div>
+   <div id="signup" class="col s12">
+       <h4 class="center" style="font-family:Stylish">Signup as Room Manager</h4>
+   <form class="col s12" enctype="multipart/form-data" action="/manager/signup1" method="POST">
+     <div class="row">
+     <div class="input-field col s12">
+         <i class="material-icons prefix red-text text-lighten-2">email</i>
+         <input type="email" name="email" id="email" required class="validate" placeholder="Email">  
+         <span class="helper-text" data-error="Wrong Email Format"></span>
+       </div>
+     <div class="input-field col s12">
+         <i class="material-icons prefix red-text text-lighten-2">person_pin</i>
+         <input type="text" name="username" id="username" required placeholder="Username">
+       </div>
+       <div class="input-field col s12">
+         <i class="material-icons prefix red-text text-lighten-2">vpn_key</i>
+         <input type="password" name="password" id="password" required placeholder="Password">
+       </div>
+
+    &nbsp;&nbsp;<i class="material-icons red-text text-lighten-2 small" style="line-height: 2;
+vertical-align: middle;">face</i> &nbsp;&nbsp;<p style="display:inline">
+      <input class="with-gap" name="gender" type="radio" id="male" value="Male"  />
+      <label for="male">Male</label>
+    </p>
+     <p style="display:inline">
+      <input class="with-gap" name="gender" type="radio" id="female" value="Female" />
+      <label for="female">Female</label>
+    </p>
+     <p style="display:inline">
+      <input class="with-gap" name="gender" type="radio" id="others"  value="Others"/>
+      <label for="others">Others</label>
+    </p>
+
+      {% csrf_token %}
+       <div class="input-field col s12">
+        <i class="material-icons prefix red-text text-lighten-2">phone</i>
+        <input type="text" name="phone_no" id="phone" required placeholder="10 digit phone no">
+      </div>
+       <div class="file-field input-field col s12">
+     <div class="btn green lighten-2">
+       <span><i class="material-icons left black-text text-lighten-1">mood</i> Profile Pic</span>
+       <input type="file" name="profile_pic">
+     </div>
+     <div class="file-path-wrapper">
+       <input class="file-path validate" type="text">
+     </div>
+   </div>
+       <div class="center">
+       <input type="submit" value="Sign Up" name="signup" class="btn green btn-large">
+       </div>
+     </div>
+   </form>
+</div>
+</div>
+        </div>
+    </div>
+</div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+  $(document).ready(function()
+  {
+    $('select').select2({width: "100%"});
+  });
+</script>
+{%endblock%}

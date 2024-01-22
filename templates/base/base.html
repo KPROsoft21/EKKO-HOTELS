@@ -1,0 +1,135 @@
+ {%load static %}
+ <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Cookie&display=swap" rel="stylesheet"> 
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js'></script>
+     <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <style>
+      .dropdown-content
+      {
+top: 53px !important;
+width:190px !important;
+      }
+    </style>
+    <style>
+      nav {
+        background-color: green;
+      }
+    </style>
+    <style>
+      .page-footer {
+        background-color: green;
+      }
+    </style>
+    
+    
+    <body>
+<nav>
+    <div class="nav-wrapper container">
+      <a href="/" class="brand-logo center" style="font-family: 'Pacifico';font-size:2rem"><i class="material-icons" style="font-size:2rem">hotel</i>EKKO </a>
+      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+     
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+        <li><a href="/contact-us">Contact Us</a></li>
+        {% if not request.session.username %}
+        <li><a class="dropdown-button" href="#!" data-activates='dropdown1'>Login/Register<i class="material-icons right">arrow_drop_down</i></a></li>
+     {% else %}
+        <li><a class="dropdown-button" href="#!" data-activates='dropdown2'>Account<i class="material-icons right">arrow_drop_down</i></a></li>
+     {% endif %}
+      </ul>
+    </div>
+  </nav>
+    <ul id="slide-out" class="side-nav">
+    
+        <li><a href="/">Home</a></li>
+        <li><a href="/contact-us">Contact Us</a></li>
+        <li><a href="/">Rooms</a></li>
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li style="margin-left:18px">
+            <a class="collapsible-header">Account<i class="material-icons right">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+               {% if not request.session.username %}
+      <li><a href="/user/login" class="blue-text"><i class="material-icons left red-text text-lighten-2">person</i> Customer</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/manager/login1" class="blue-text"><i class="material-icons left red-text text-lighten-2">room_service</i> Room Manager</a></li>
+  {% else %}
+   {% if request.session.type == 'customer' %}
+        <li><a href="/user/dashboard"><i class="material-icons left red-text text-lighten-2">dashboard</i> Dashboard</a></li>
+                  {% else %}
+        <li><a href="/manager/dashboard1"><i class="material-icons left red-text text-lighten-2">dashboard</i> Dashboard</a></li>         
+                  {% endif %}
+        <li><a href="/logout"><i class="material-icons left red-text text-lighten-2">exit_to_app</i> Logout</a></li>
+     {% endif %}
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+  </ul>
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="/user/login" class="blue-text"><i class="material-icons left red-text text-lighten-2">person</i> Customer</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/manager/login1" class="blue-text"><i class="material-icons left red-text text-lighten-2">room_service</i> Room Manager</a></li>
+  </ul>
+    <ul id='dropdown2' class='dropdown-content'>
+     {% if request.session.type == 'customer' %}
+       <li><a href="/user/dashboard"> <i class="material-icons left red-text text-lighten-2">dashboard</i>Dashboard</a></li>
+                  {% else %}
+       <li><a href="/manager/dashboard1"> <i class="material-icons left red-text text-lighten-2">dashboard</i>Dashboard</a></li>    
+                  {% endif %}
+        <li><a href="/logout"> <i class="material-icons left red-text text-lighten-2">exit_to_app</i>Logout</a></li>
+    </ul>
+{% block content %}
+
+{%endblock %}
+        <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text" style="font-family: 'Cookie';">Room Slots</h5>
+                <p class="grey-text text-lighten-4">Get your room booked in seconds with amazing offers.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text" style="font-family:'Times New Roman'">Important Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="/">Home</a></li>
+                  <li><a class="grey-text text-lighten-3" href="/contact-us">Contact Us</a></li>
+                  {% if not request.session.username %}
+                  {% if request.session.type == 'customer' %}
+                  <li><a class="grey-text text-lighten-3" href="/user/login">Customer</a></li>
+                  {% else %}
+                  <li><a class="grey-text text-lighten-3" href="/manager/login1">Room Manager</a></li>
+                  {% endif %}
+                  {% else %}
+                  <li><a class="grey-text text-lighten-3" href="/logout">Logout</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2022 KPROsoftware. All right reserved
+            </div>
+          </div>
+        </footer>
+    <!-- Compiled and minified JavaScript -->
+    <script> 
+      $(".button-collapse").sideNav();
+    $('.dropdown-button').dropdown({
+      hover:true
+}
+  );
+    </script>
+    </body>
+  </html>
