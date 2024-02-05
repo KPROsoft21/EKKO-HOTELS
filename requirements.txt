@@ -1,0 +1,9 @@
+asgiref
+Django
+django-rest-framework
+djangorestframework
+pillow
+pytz
+setuptools
+sqlparse
+wheel
